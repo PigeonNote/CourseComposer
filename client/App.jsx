@@ -1,7 +1,8 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route, Switch } from 'react-router-dom';
+import React, { component } from 'react';
+import { Route, Routes, BrowserRouter } from 'react-router-dom';
 // Im not sure abou the imports, letz looks into it
-import Login from '../components/login.jsx';
+import Login from './components/Login.jsx';
+import Dashboard from './components/Dashboard.jsx';
 
 const App = props => {
   return (
@@ -13,31 +14,29 @@ const App = props => {
               You can learn more about this at:
               https://reacttraining.com/react-router/web/guides/quick-start
         */}
-        <Switch>
-          <Route
-            exact
-            path="/"
-            component={<Login/>} // this would be login.jsx
-          />
-          <Route
-            exact
-            path="/signup"
-            component={signup} // this would be login.jsx
-          />
-          <Route
-            exact
-            path="/dashboard"
-            component={dashboard}
-          />
-          <Route
-            exact
-            path="/createCourse"
-            component={createCourse}
-          />
-        </Switch>
+        <h1>Welcome to Pigeon Notes!</h1>
+        <BrowserRouter>
+          <Routes>
+          <Route path='/' element={<Login/>}/>
+          <Route path='/dashboard' element={<Dashboard/>}/>
+          </Routes>
+        </BrowserRouter>
       </main>
     </div>
   );
 };
 
 export default App;
+
+
+// <Route
+// exact
+// path="/signup"
+// component={signup} // this would be login.jsx
+// />
+
+// <Route
+// exact
+// path="/createCourse"
+// component={createCourse}
+// />
