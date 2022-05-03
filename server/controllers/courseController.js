@@ -56,7 +56,7 @@ courseController.getCourse = async (req, res, next) => {
   // console.log('username: ', username);
   try {
     const query = {
-      text: 'select * from courses where username = $1 return *;',
+      text: 'SELECT * FROM courses WHERE username = $1 return *;',
       values: [username]
     };
 
