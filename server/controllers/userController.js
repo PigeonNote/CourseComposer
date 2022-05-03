@@ -49,7 +49,8 @@ userController.deleteUser = (req, res, next) => {
 
 userController.getUser = async(req, res, next) => {
   const { username, password } = req.body;
-
+  console.log('did i get to the controller for login ?')
+  
   // query db for password under givne username
   const query = `SELECT password FROM accounts WHERE id = ${username}`;
   const hash = await (db.query(query));

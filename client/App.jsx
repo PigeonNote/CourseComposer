@@ -3,6 +3,8 @@ import { Route, Routes, BrowserRouter } from 'react-router-dom';
 // Im not sure abou the imports, letz looks into it
 import Login from './components/Login.jsx';
 import Dashboard from './components/Dashboard.jsx';
+import SignUp from './components/signup.jsx';
+import './style/style.css';
 
 const App = props => {
   return (
@@ -17,8 +19,9 @@ const App = props => {
         <h1>Welcome to Pigeon Notes!</h1>
         <BrowserRouter>
           <Routes>
-          <Route path='/' element={<Login/>}/>
-          <Route path='/dashboard' element={<Dashboard/>}/>
+            <Route path='/' element={<Login/>}/>
+            <Route path='/dashboard' element={<Dashboard/>}/>
+            <Route path='/signup' element={<SignUp/>}/>
           </Routes>
         </BrowserRouter>
       </main>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions/actions';
+import SideNav from './SideNav.jsx';
 
 const mapStateToProps = state => { 
   //redux state
@@ -32,8 +33,10 @@ const mapDispatchToProps = dispatch => ({
 
 const Dashboard = props => {
   return (
-    <h1>COURSE DASHBOARD</h1>
-  )
+    <div id="dash">
+      <SideNav/>
+    </div>
+  );
 
 };
 
