@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Switch } from 'react-router-dom';
 // Im not sure abou the imports, letz looks into it
+import Login from '../components/login.jsx';
 
 const App = props => {
   return (
@@ -16,7 +17,7 @@ const App = props => {
           <Route
             exact
             path="/"
-            component={login} // this would be login.jsx
+            component={<Login/>} // this would be login.jsx
           />
           <Route
             exact
