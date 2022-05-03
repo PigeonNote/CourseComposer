@@ -1,16 +1,18 @@
 const path = require('path');
 const express = require('express');
-
+const cors = require('cors');
 const app = express();
 
-const userRouter = require("./routes/user.js");
-const courseRouter = require("./routes/course.js");
+const userRouter = require('./routes/user.js');
+const courseRouter = require('./routes/course.js');
 
 const PORT = 3000;
-
+///
 /**
  * handle parsing request body
  */
+app.use(cors({credentials: true, origin: 'http://localhost:8080'}));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -18,18 +20,20 @@ app.use(express.urlencoded({ extended: true }));
  * handle requests for static files
  */
 app.use(express.static(path.resolve(__dirname, '../client')));
+app.use(express.static(path.join(__dirname, '../client/style')));
 
 /**
  * ROUTES
 */
 // SIGN UP
-app.use('/signup', userRouter);
-// DELETE USER
-app.use('/delete', userRouter);
-// LOGIN
-app.use('/login', userRouter);
-// UPDATE LOGIN
-app.use('/update', userRouter);
+app.use('/', userRouter);
+// app.use('/signup', userRouter);
+// // DELETE USER
+// app.use('/delete', userRouter);
+// // LOGIN
+// app.use('/login', userRouter);
+// // UPDATE LOGIN
+// app.use('/update', userRouter);
 
 // COURSE
 app.use('/course', courseRouter);

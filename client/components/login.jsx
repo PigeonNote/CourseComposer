@@ -20,9 +20,38 @@ class Login extends Component {
   onSubmit(event) {
     console.log('Inside onSubmit');
     event.preventDefault();
+    let fetchStatus;
     //fetch to login
-    this.setState({...this.state, loggedIn: true}) //replace as a condition of fetch request to DB
+    const loginInfo = {
+      username: event.target.username.value,
+      password: event.target.password.value
+    };
+    
+    fetch('http://localhost:3000/login', {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(loginInfo)
+
+    })
+      .then((response) => {
+        fetchStatus = response.status;
+        return response.json();
+      })
+      .then((data) => {
+        console.log('data is:', data);
+        if (fetchStatus === 200) {
+          this.setState({...this.state, loggedIn: true});
+          return;
+        }
+        else {
+          return alert('login unsuccessful');
+        }
+      });
   }
+  
   render() {
     return this.state.loggedIn ? <Navigate to="/dashboard"/> : (
       <div id="LoginBox">
