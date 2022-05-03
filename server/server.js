@@ -3,7 +3,8 @@ const express = require('express');
 
 const app = express();
 
-const apiRouter = require('./api');
+const userRouter = require("./routes/user.js");
+const courseRouter = require("./routes/course.js");
 
 const PORT = 3000;
 
@@ -19,9 +20,19 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.resolve(__dirname, '../client')));
 
 /**
- * define route handlers
- */
-app.use('/api', apiRouter);
+ * ROUTES
+*/
+// SIGN UP
+app.use('/signup', userRouter);
+// DELETE USER
+app.use('/delete', userRouter);
+// LOGIN
+app.use('/login', userRouter);
+// UPDATE LOGIN
+app.use('/update', userRouter);
+
+// COURSE
+app.use('/course', courseRouter);
 
 // catch-all route handler for any requests to an unknown route
 app.use((req, res) => res.status(404).send('This is not the page you\'re looking for...'));
