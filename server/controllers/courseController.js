@@ -1,10 +1,24 @@
-// const db = require('../models/pigeonModels');
+const db = require('../models/pigeonModels');
 
 const courseController = {};
 
-courseController.createCourse = (req, res, next) => {
+courseController.createCourse = async (req, res, next) => {
+  // INSERT INTO courses ( title, info, username ) VALUES ($1, $2, $3) RETURNING *;
   // destruct object
+  const { title, info, username } = req.body;
+  const query = {
+    text: 'INSERT INTO courses ( title, info, username ) VALUES ($1, $2, $3) RETURNING *;',
+    value: [title, info, username]
+  };
+  // Get existing account courses
+  const getAccCrsQuery = {
+    text: 'INSERT INTO courses ( title, info, username ) VALUES ($1, $2, $3) RETURNING *;',
+    value: [title, info, username]
+  };
+  // append to user's course array in account table
+  // UPDATE accounts SET courses = $1 WHERE username = $2;
   try {
+    res.locals.course = await db.query(query);
     console.log('createCourse');
     return next();
   } catch (err) {
