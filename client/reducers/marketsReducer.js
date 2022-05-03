@@ -19,7 +19,7 @@ const initialState = {
   newLocation: '',
 };
 
-// const marketsReducer = (state = initialState, action) => {
+const marketsReducer = (state = initialState, action) => {
 //   let marketList; 
 //   //console.log('WE MADE IT ', action)
 //   let totalCards;
@@ -84,6 +84,6 @@ const initialState = {
 //       return state;
 //     }
 //   }
-// };
+};
 
 export default marketsReducer;
