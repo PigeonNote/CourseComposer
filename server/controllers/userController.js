@@ -3,59 +3,67 @@ const bcrypt = require('bcrypt');
 
 const userController = {};
 
-userController.createUser = (req, res, next) => {
+userController.createUser = async (req, res, next) => {
   // destruct object
-  const { username, password, email } = req.body;
+  const { username, password } = req.body;
   const rounds = 10;
-  bcrypt.hash(password, rounds, (err, hash) => {
+  // let hashPassword = 0;
+  bcrypt.hash(password, rounds, async (err, hash) => {
     if (err) {
       console.log(err);
       return;
     }
-    console.log(hash);
-    // res.locals.hash = hash;
-
+    const query = {
+      text: 'INSERT INTO accounts (username, password) VALUES ($1, $2)',
+      values: [username, hash]
+    }
+    try {
+      const result = await db.query(query);
+      console.log('result: ', result);
+      console.log('createUser');
+      return next();
+    } catch (err) {
+      // if there is an err, return the errorObj to the global error handler
+      return next({
+        log: 'Error Express - userController.createUser',
+        status: 500,
+        message: { err },
+      });
+    }
   });
-  // query string
-  const query =
-    'INSERT INTO accounts (username, password, email) VALUES ($1, $2, $3) RETURNING *';
-  try {
-    console.log('createUser');
-    return next();
-  } catch (err) {
-    // if there is an err, return the errorObj to the global error handler
-    return next({
-      log: 'Error Express - userController.createUser',
-      status: 500,
-      message: { err },
-    });
-  }
 };
 
-userController.deleteUser = (req, res, next) => {
-  // destruct object
-  try {
-    console.log('deleteUser');
-    return next();
-  } catch (err) {
-    // if there is an err, return the errorObj to the global error handler
-    return next({
-      log: 'Error Express - userController.deleteUser',
-      status: 500,
-      message: { err },
-    });
-  }
-};
+// userController.deleteUser = (req, res, next) => {
+//   // destruct object
+//   const { username } = req.body;
+//   try {
+//     console.log('deleteUser');
+//     return next();
+//   } catch (err) {
+//     // if there is an err, return the errorObj to the global error handler
+//     return next({
+//       log: 'Error Express - userController.deleteUser',
+//       status: 500,
+//       message: { err },
+//     });
+//   }
+// };
 
+// LOG-IN verify password when user logs in
 userController.getUser = async(req, res, next) => {
-  const { username, password } = req.body;
+  const { username , password } = req.body;
 
-  // query db for password under givne username
-  const query = `SELECT password FROM accounts WHERE id = ${username}`;
+  // query db for password under given username
+  const query = {
+    text: 'SELECT password FROM accounts WHERE username = $1',
+    values: [username]
+  };
+  // console.log('before hash')
   const hash = await (db.query(query));
+  // console.log("!!!!hash: ", hash);
 
   // validate password
-  bcrypt.compare(password, hash, (err, res) => {
+  bcrypt.compare(password, hash.rows[0].password, (err, res) => {
     if (err) {
       console.log(err);
       return;
@@ -75,19 +83,19 @@ userController.getUser = async(req, res, next) => {
   }
 };
 
-userController.updateUser = (req, res, next) => {
-  // destruct object
-  try {
-    console.log('updateUser');
-    return next();
-  } catch (err) {
-    // if there is an err, return the errorObj to the global error handler
-    return next({
-      log: 'Error Express - userController.updateUser',
-      status: 500,
-      message: { err },
-    });
-  }
-};
+// userController.updateUser = (req, res, next) => {
+//   // destruct object
+//   try {
+//     console.log('updateUser');
+//     return next();
+//   } catch (err) {
+//     // if there is an err, return the errorObj to the global error handler
+//     return next({
+//       log: 'Error Express - userController.updateUser',
+//       status: 500,
+//       message: { err },
+//     });
+//   }
+// };
 
 module.exports = userController;

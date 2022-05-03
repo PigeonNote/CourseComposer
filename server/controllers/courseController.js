@@ -7,18 +7,22 @@ courseController.createCourse = async (req, res, next) => {
   // destruct object
   const { title, info, username } = req.body;
   const query = {
-    text: 'INSERT INTO courses ( title, info, username ) VALUES ($1, $2, $3) RETURNING *;',
-    value: [title, info, username]
+    text: 'INSERT INTO courses ( title, info, username ) VALUES ($1, $2, $3) RETURNING course_id;',
+    values: [title, info, username]
   };
-  // Get existing account courses
-  const getAccCrsQuery = {
-    text: 'INSERT INTO courses ( title, info, username ) VALUES ($1, $2, $3) RETURNING *;',
-    value: [title, info, username]
-  };
+  const courseId = await db.query(query); 
+  console.log('this is course id:', courseId);
+  
+  // join tables
+  'SELECT * FROM accounts LEFT OUTER JOIN courses ON accounts.courses = account'
+
   // append to user's course array in account table
-  // UPDATE accounts SET courses = $1 WHERE username = $2;
+  const updateCourseQuery = {
+    text: 'UPDATE accounts SET courses = (SELECT courses FROM accounts WHERE username = $2) || ARRAY[$1] WHERE username = $2;',
+    values: [courseId, username]
+  };
   try {
-    res.locals.course = await db.query(query);
+    await db.query(updateCourseQuery);
     console.log('createCourse');
     return next();
   } catch (err) {
@@ -46,10 +50,20 @@ courseController.deleteCourse = (req, res, next) => {
   }
 };
 
-courseController.getCourse = (req, res, next) => {
+courseController.getCourse = async (req, res, next) => {
   // destruct object
+  const { username } = req.params;
+  // console.log('username: ', username);
   try {
-    console.log('getCourse');
+    const query = {
+      text: 'select * from courses where username = $1 return *;',
+      values: [username]
+    };
+
+    const userInfo = await db.query(query);
+
+    // console.log('userInfo: ', userInfo);
+
     return next();
   } catch (err) {
     // if there is an err, return the errorObj to the global error handler

@@ -22,14 +22,15 @@ app.use(express.static(path.resolve(__dirname, '../client')));
 /**
  * ROUTES
 */
-// SIGN UP
-app.use('/signup', userRouter);
-// DELETE USER
-app.use('/delete', userRouter);
-// LOGIN
-app.use('/login', userRouter);
-// UPDATE LOGIN
-app.use('/update', userRouter);
+// USER
+app.use('/user', userRouter);
+// app.use('/signup', userRouter);
+// // DELETE USER
+// app.use('/delete', userRouter);
+// // LOGIN
+// app.use('/login', userRouter);
+// // UPDATE LOGIN
+// app.use('/update', userRouter);
 
 // COURSE
 app.use('/course', courseRouter);
