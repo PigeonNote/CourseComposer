@@ -6,12 +6,14 @@ const courseController = require('../controllers/courseController');
 const router = express.Router();
 
 router.post('/add', courseController.createCourse, (req, res) =>
-  res.sendStatus(200));
+  res.status(200).json(res.locals.createdCourse));
 
-router.delete('/delete', courseController.deleteCourse, (req, res) => res.status(200));
+router.delete('/:course_id', courseController.deleteCourse, (req, res) => res.status(200).json(res.locals.slides));
 
-router.get('/:username', courseController.getCourse, (req, res) => res.sendStatus(200));
+router.get('/:username', courseController.getCourse, (req, res) =>
+  res.status(200).json(res.locals.userCourses));
 
-router.patch('/patch', courseController.updateCourse, (req, res) => res.status(200));
+router.patch('/patch', courseController.updateCourse, (req, res) =>
+  res.status(200).json(res.locals.updatedCourse));
 
 module.exports = router;
