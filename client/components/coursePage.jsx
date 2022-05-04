@@ -36,8 +36,6 @@ class CoursePage extends Component {
             id="notes-value"
           />
         </div>
-        
-        
       </div>
       
 

@@ -6,6 +6,7 @@ import Dashboard from './components/Dashboard.jsx';
 import SignUp from './components/signup.jsx';
 import CreateCourse from './components/CreateCourse.jsx';
 import CoursePage from './components/CoursePage.jsx';
+import CreateLesson from './components/CreateLesson';
 import './style/style.css';
 
 const App = props => {
@@ -26,6 +27,7 @@ const App = props => {
             <Route path='/signup' element={<SignUp/>}/>
             <Route path='/create' element={<CreateCourse/>}/>
             <Route path='/coursepage' element={<CoursePage/>}/>
+            <Route path='/createlesson' element={<CreateLesson/>}/>
           </Routes>
         </BrowserRouter>
       </main>

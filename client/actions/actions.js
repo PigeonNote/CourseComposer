@@ -16,7 +16,7 @@ export const storeUserData = userData => ({
 
 // change payload to ???
 export const addCourse = newCourse => {
-  return { type: types.ADD_COURSE, payload: newCourse }
+  return { type: types.ADD_COURSE, payload: newCourse }// newCourse = { courseName, info}
 };
 
 export const deleteCourse = newLocation => {

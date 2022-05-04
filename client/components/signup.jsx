@@ -32,8 +32,7 @@ class Signup extends Component{
     //fetch to login
     const signUpInfo = {
       username: event.target.username.value,
-      password: event.target.password.value,
-      email: event.target.email.value
+      password: event.target.password.value
     };
       
     fetch('http://localhost:3000/user/signup', {
@@ -74,8 +73,6 @@ class Signup extends Component{
           <input className="input signUpInput inputFields" name="username" id="usernameInput" type="text" placeholder='username'></input>
           <br></br>
           <input className="input signUpInput inputFields" name="password" id="passwordInput" type="password" placeholder='password'></input>
-          <br></br>
-          <input className="input signUpInput inputFields" name="email" id="emaiInput" type="text" placeholder='email'></input>
           <br></br>
           <button className="sign-up-button">Sign Up</button>
         </form>

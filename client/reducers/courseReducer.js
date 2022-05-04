@@ -40,19 +40,20 @@ const courseReducer = (state = initialState, action) => {
 
     case types.ADD_COURSE:
       const course = {
-        courseName: action.payload,
+        courseName: action.payload.title,
+        info: action.payload.info,
         courseID: ++state.lastCourseId,
         totalLessons: 0,
         lessons: [] // maybe linked list ?
       };
       const courses = state.courseList.slice();
       courses.push(course);
+      console.log('courses: ', courses);
       return {
         ...state, 
         courseList: courses,
         lastCourseId: course.courseID,
         totalCourses: ++state.totalCourses,
-  
       };
   
     case types.DELETE_COURSE: 
