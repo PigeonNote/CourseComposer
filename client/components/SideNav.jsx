@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link, Navigate} from 'react-router-dom';
 
 class SideNav extends Component {
   constructor() {
@@ -11,9 +12,12 @@ class SideNav extends Component {
         <a href="#section">Account</a>
         <br></br>
         <br></br>
-        <a href="#section">
+        {/* <a href="#section">
           <button>Create Course</button>
-        </a>
+        </a> */}
+        <Link className="loginPageButton" to={'/create'}>
+          <button>Create Course</button>
+        </Link>
       </div>     
     );
   }
