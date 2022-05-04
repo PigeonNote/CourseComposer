@@ -21,9 +21,12 @@ class SideNav extends Component {
         {/* <a href="#section">
           <button>Create Course</button>
         </a> */}
+        <br></br>
+        <br></br>
         <Link className="loginPageButton" to={'/create'}>
           <button>Create Course</button>
         </Link>
+        </a>
       </div>     
     );
   }
