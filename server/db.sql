@@ -4,7 +4,6 @@ CREATE TABLE accounts (
 	"accountID" serial NOT NULL,
 	"username" varchar(50) NOT NULL UNIQUE,
 	"password" varchar(100) NOT NULL,
-    "courses" integer ARRAY,
 	CONSTRAINT "account_pk" PRIMARY KEY ("accountID")
 ); 
     -- COURSE TABLE
@@ -12,7 +11,6 @@ CREATE TABLE courses (
 	"courseID" serial NOT NULL,
 	"title" varchar(50) NOT NULL,
 	"info" varchar(250),
-    "slides" integer ARRAY,
     "username" varchar(50) NOT NULL,
 	CONSTRAINT "course_pk" PRIMARY KEY ("courseID")
 ); 
@@ -24,7 +22,7 @@ CREATE TABLE slides (
 	"slideID" serial NOT NULL,
 	"video" varchar(255),
 	"text" varchar(1000),
-    "index" integer NOT NULL,
+    "index" integer NOT NULL UNIQUE,
     "courseID" integer NOT NULL,
 	CONSTRAINT "slide_pk" PRIMARY KEY ("slideID")
 ); 

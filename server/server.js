@@ -38,6 +38,9 @@ app.use('/user', userRouter);
 // COURSE
 app.use('/course', courseRouter);
 
+// SlIDES
+app.use('/slide', courseRouter);
+
 // catch-all route handler for any requests to an unknown route
 app.use((req, res) => res.status(404).send('This is not the page you\'re looking for...'));
 
