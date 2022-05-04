@@ -6,19 +6,19 @@ const userController = require('../controllers/userController');
 const router = express.Router();
 
 router.post('/signup', userController.createUser, (req, res) =>{
-  res.sendStatus(200)
+  res.sendStatus(200);
 });
 
-// router.delete('/', userController.deleteUser, (req, res) =>
-//   res.status(200)
-// );
+router.delete('/:account_id', userController.deleteUser, (req, res) =>
+  res.sendStatus(200)
+);
 
 router.post('/login', userController.getUser, (req, res) =>
   res.sendStatus(200)
 );
 
-// router.patch('/', userController.updateUser, (req, res) =>
-//   res.status(200)
-// );
+router.patch('/', userController.updateUser, (req, res) =>
+  res.sendStatus(200)
+);
 
 module.exports = router;

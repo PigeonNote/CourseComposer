@@ -26,9 +26,21 @@ courseController.createCourse = async (req, res, next) => {
   }
 };
 
-courseController.deleteCourse = (req, res, next) => {
+courseController.deleteCourse = async (req, res, next) => {
   // destruct object
+
+  const { course_id } = req.params;
+  
+  console.log('course_id: ', req.params);
+
   try {
+    const query = {
+      text: 'DELETE FROM courses WHERE course_id = $1;',
+      values: [course_id]
+    };
+
+    await db.query(query);
+
     console.log('deleteCourse');
     return next();
   } catch (err) {
@@ -42,7 +54,7 @@ courseController.deleteCourse = (req, res, next) => {
 };
 
 courseController.getCourse = async (req, res, next) => {
-  // destruct object
+  
   const { username } = req.params;
   console.log('username: ', username);
   try {
@@ -66,10 +78,21 @@ courseController.getCourse = async (req, res, next) => {
   }
 };
 
-courseController.updateCourse = (req, res, next) => {
+courseController.updateCourse = async (req, res, next) => {
+
+  const { course_id, title, info } = req.body;
   // destruct object
   try {
-    console.log('updateCourse');
+    const query = {
+      text: 'UPDATE courses SET title = $1, info = $2 WHERE course_id = $3 RETURNING *',
+      values: [ title , info, course_id ]
+    };
+
+    const result = await db.query(query);
+
+    console.log('results: ', result.rows[0]);
+    res.locals.updatedCourse = result.rows[0];
+    
     return next();
   } catch (err) {
     // if there is an err, return the errorObj to the global error handler

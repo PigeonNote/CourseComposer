@@ -1,84 +1,103 @@
 const db = require('../models/pigeonModels');
 
-const courseController = {};
+const slideController = {};
 
-courseController.createCourse = async (req, res, next) => {
-  // INSERT INTO courses ( title, info, username ) VALUES ($1, $2, $3) RETURNING *;
+slideController.createSlide = async (req, res, next) => {
   // destruct object
-  const { title, info, username } = req.body;
+  const { video, text, course_id } = req.body;
+  console.log('req.body: ', req.body);
   const query = {
-    text: 'INSERT INTO courses ( title, info, username ) VALUES ($1, $2, $3) RETURNING *;',
-    values: [title, info, username]
+    text: 'INSERT INTO slides ( video, text, course_id ) VALUES ($1, $2, $3) RETURNING *;',
+    values: [video, text, course_id]
   };
   
   try {
-    const newCourse = await db.query(query); 
-    const { courseID } = newCourse.rows[0];
-    res.locals.createdCourse = {...newCourse.rows[0]};
+    const newSlide = await db.query(query); 
+    console.log('newSlide: ', newSlide);
+    const { slide_id } = newSlide.rows[0];
+    res.locals.createdSlide = {...newSlide.rows[0]};
     return next();
   } catch (err) {
     // if there is an err, return the errorObj to the global error handler
     return next({
-      log: 'Error Express - courseController.createCourse',
+      log: 'Error Express - slideController.createSlide',
       status: 500,
       message: { err },
     });
   }
 };
 
-courseController.deleteCourse = (req, res, next) => {
+slideController.deleteSlide = (req, res, next) => {
   // destruct object
+  const { slide_id } = req.params;
+
+  // query string
+  const query = {
+    text: 'DELETE FROM slides WHERE slide_id = $1',
+    values: [slide_id]
+  };
+
   try {
-    console.log('deleteCourse');
+    const result = db.query(query);
+    console.log('deleteSlide');
     return next();
   } catch (err) {
     // if there is an err, return the errorObj to the global error handler
     return next({
-      log: 'Error Express - courseController.deleteCourse',
+      log: 'Error Express - slideController.deleteSlide',
       status: 500,
       message: { err },
     });
   }
 };
 
-courseController.getCourse = async (req, res, next) => {
+slideController.getSlide = async (req, res, next) => {
   // destruct object
-  const { username } = req.params;
-  console.log('username: ', username);
+  const { course_id } = req.params;
+  console.log('course_id: ', course_id);
   try {
     const query = {
-      text: 'SELECT * FROM courses WHERE username = $1;',
-      values: [username]
+      text: 'SELECT * FROM slides WHERE course_id = $1;',
+      values: [course_id]
     };
     
-    const userInfo = await db.query(query);
+    const allSlides = await db.query(query);
 
-    // console.log('userinfo:', userInfo.rows);
-    res.locals.userCourses = [...userInfo.rows];
+    console.log('allSlides:', allSlides.rows);
+    res.locals.allSlides = [...allSlides.rows];
     return next();
   } catch (err) {
     // if there is an err, return the errorObj to the global error handler
     return next({
-      log: 'Error Express - courseController.getCourse',
+      log: 'Error Express - slideController.getSlide',
       status: 500,
       message: { err },
     });
   }
 };
 
-courseController.updateCourse = (req, res, next) => {
+slideController.updateSlide = async (req, res, next) => {
   // destruct object
+  const { slide_id, video, text } = req.body;
+  // query string for updating video and text
   try {
-    console.log('updateCourse');
+    const updateQuery = {
+      text: 'UPDATE slides SET video = $2, text = $3 WHERE slide_id = $1 RETURNING *',
+      values: [slide_id, video, text]
+    };
+    const newSlide = await db.query(updateQuery);
+    res.locals.newSlide = newSlide.rows[0];
+
+    console.log('updateSlide');
     return next();
   } catch (err) {
     // if there is an err, return the errorObj to the global error handler
     return next({
-      log: 'Error Express - courseController.updateCourse',
+      log: 'Error Express - slideController.updateSlide',
       status: 500,
       message: { err },
     });
   }
 };
 
-module.exports = courseController;
+module.exports = slideController;

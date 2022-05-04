@@ -5,14 +5,16 @@ const slideController = require('../controllers/slideController');
 
 const router = express.Router();
 
-router.post('/add', slideController.createslide, (req, res) =>
-  res.status(200).json(res.locals.createdslide));
+router.post('/', slideController.createSlide, (req, res) =>
+  res.status(200).json(res.locals.createdSlide));
 
-router.delete('/delete', slideController.deleteslide, (req, res) => res.status(200));
+router.delete('/:slide_id', slideController.deleteSlide, (req, res) =>
+  res.sendStatus(200));
 
-router.get('/:username', slideController.getslide, (req, res) =>
-  res.status(200).json(res.locals.userslides));
+router.get('/:course_id', slideController.getSlide, (req, res) =>
+  res.status(200).json(res.locals.allSlides));
 
-router.patch('/patch', slideController.updateslide, (req, res) => res.status(200));
+router.patch('/', slideController.updateSlide, (req, res) =>
+  res.status(200).json(res.locals.newSlide));
 
 module.exports = router;

@@ -1,30 +1,28 @@
 -- CREATE TABLE
     -- ACCOUNT TABLE
 CREATE TABLE accounts (
-	"accountID" serial NOT NULL,
+	"account_id" serial NOT NULL,
 	"username" varchar(50) NOT NULL UNIQUE,
 	"password" varchar(100) NOT NULL,
 	CONSTRAINT "account_pk" PRIMARY KEY ("accountID")
 ); 
     -- COURSE TABLE
 CREATE TABLE courses (
-	"courseID" serial NOT NULL,
+	"course_id" serial NOT NULL,
 	"title" varchar(50) NOT NULL,
 	"info" varchar(250),
-    "username" varchar(50) NOT NULL,
-	CONSTRAINT "course_pk" PRIMARY KEY ("courseID")
+    "username" varchar(50) NOT NULL
 ); 
 
 -- INSERT INTO courses ( title, info, username ) VALUES ('Stud Hub', 'Hubs for Studs', 'test');
 
     -- SLIDE TABLE
 CREATE TABLE slides (
-	"slideID" serial NOT NULL,
-	"video" varchar(255),
+	"slide_id" serial NOT NULL,
+	"video" varchar(1000),
 	"text" varchar(1000),
-    "index" integer NOT NULL UNIQUE,
-    "courseID" integer NOT NULL,
-	CONSTRAINT "slide_pk" PRIMARY KEY ("slideID")
+    "index" serial NOT NULL,
+    "course_id" integer NOT NULL
 ); 
 
 -- GET TABLE
