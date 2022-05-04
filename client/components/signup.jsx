@@ -3,22 +3,6 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Link, Navigate} from 'react-router-dom';
 
 
-// export default function Test() {
-//   const navigate = useNavigate();
-//   const routeChange = () => {
-//     const path = '/';
-//     navigate(path);
-//   }
-
-//   return (
-//     <div id='signupPage'>
-//       <div id='titleAndButton'>
-//         <button className='returnBlurb' onClick={routeChange}>Back to login</button>
-//       </div>
-//     </div>
-//   )
-// };
-
 class Signup extends Component{
   constructor(props) {
     super(props);
@@ -51,16 +35,6 @@ class Signup extends Component{
           return;
         }
       })
-      // .then((data) => {
-      //   console.log('THIS IS THE DATA YOUR LOOKING 4: ', data);
-      //   if (fetchStatus === 200) {
-      //     this.setState({...this.state, loggedIn: true});
-      //     return;
-      //   } 
-      //   else {
-      //     return alert('login unsuccessful');
-      //   }
-      // });
   }
 
 

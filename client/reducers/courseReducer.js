@@ -33,10 +33,19 @@ const courseReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.STORE_USERINFO:
       const {userID} = action.payload;
+      console.log('payload is:', action.payload)
       return {
         ...state, 
-        userID
+        userID: userID
       };
+
+    case types.GET_COURSES:
+      const allCourses = action.payload;
+      const courseData = allCourses.slice()
+      return {
+        ...state, 
+        courseList: courseData
+      }
 
     case types.ADD_COURSE:
       const course = {

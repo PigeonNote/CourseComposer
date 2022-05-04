@@ -3,22 +3,21 @@ import { connect } from 'react-redux';
 import * as actions from '../actions/actions';
 import { Link, Navigate} from 'react-router-dom';
 
-// const mapDispatchToProps = dispatch => {
-//   dispatchUsernameStorage: (username) => {
-//     dispatch(actions.storeUserData(username));
-//   }; 
-// };
+const mapDispatchToProps = dispatch => ({
+  dispatchUsernameStorage: (userID) => {
+    dispatch(actions.storeUserData(userID));
+  }
+});
 
 class Login extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { username: '', password: '', loggedIn: false };
+    this.state = { userID: '', loggedIn: false };
     this.onSubmit = this.onSubmit.bind(this);
     // this.sendToSignUp = this.sendToSignUp.bind(this);
   }
   onSubmit(event) {
-    console.log('Inside onSubmit');
     event.preventDefault();
     let fetchStatus;
     //fetch to login
@@ -38,18 +37,15 @@ class Login extends Component {
     })
       .then((response) => {
         fetchStatus = response.status;
-        return response.json();
-      })
-      .then((data) => {
-        console.log('data is:', data);
         if (fetchStatus === 200) {
+          console.log('this.props is:', this.props)
+          this.props.dispatchUsernameStorage({userID: loginInfo.username});
           this.setState({...this.state, loggedIn: true});
           return;
+        } else {
+            alert('Login Error')
         }
-        else {
-          return alert('login unsuccessful');
-        }
-      });
+      })
   }
   
   render() {
@@ -77,16 +73,6 @@ class Login extends Component {
 }
 
 
-// return(
-//   <div id="login">
-//     <form id="loginform" onSubmit={this.onSubmit}>   
-//       <input name="username" type="text" placeholder="username"></input>
-//       <input name="password" type="text" placeholder="password"></input>
-//       <button type="submit">Submit</button>
-//     </form>
-//     <button>Create Account</button>
-//   </div>
-// );
 
-export default Login;
-//export default connect(null, mapDispatchToProps)(Login);
+// export default Login;
+export default connect(null, mapDispatchToProps)(Login);
