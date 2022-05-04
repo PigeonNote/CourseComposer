@@ -1,8 +1,7 @@
-// import React from 'react';
-// import { BrowserRouter, Routes, Route } from 'react-router-dom';
-// import SignupBox from './components/SignupBox.jsx';
-// import { useNavigate } from 'react-router-dom';
-// import './styles/SignUp.css';
+import React, { Component } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Link, Navigate} from 'react-router-dom';
+
 
 // export default function Test() {
 //   const navigate = useNavigate();
@@ -13,11 +12,71 @@
 
 //   return (
 //     <div id='signupPage'>
-//       <h1 id='loginHeader2'>Breathe Better Air™</h1>
-//       <SignupBox />
 //       <div id='titleAndButton'>
 //         <button className='returnBlurb' onClick={routeChange}>Back to login</button>
 //       </div>
 //     </div>
 //   )
 // };
+
+class Signup extends Component{
+  constructor(props) {
+    super(props);
+    this.state = { username: '', loggedIn: false };
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  onSubmit(event) {
+    event.preventDefault();
+    let fetchStatus;
+    //fetch to login
+    const signUpInfo = {
+      username: event.target.username.value,
+      password: event.target.password.value,
+      email: event.target.email.value
+    };
+      
+    fetch('http://localhost:3000/signup', {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(signUpInfo)
+    })
+      .then((response) => {
+        fetchStatus = response.status;
+        return response.json();
+      })
+      .then((data) => {
+        if (fetchStatus === 200) {
+          this.setState({...this.state, loggedIn: true});
+          return;
+        } 
+        else {
+          return alert('login unsuccessful');
+        }
+      });
+  }
+
+
+  render(){
+    return this.state.loggedIn ? <Navigate to="/dashboard"/> : (
+      <div id="signup">
+        <form id="sign-up-form" onSubmit={this.onSubmit}>
+          <label className='signUpText'>Create An Account</label>
+          <br></br>
+          <input className="input signUpInput inputFields" name="username" id="usernameInput" type="text" placeholder='username'></input>
+          <br></br>
+          <input className="input signUpInput inputFields" name="password" id="passwordInput" type="password" placeholder='password'></input>
+          <br></br>
+          <input className="input signUpInput inputFields" name="email" id="emaiInput" type="text" placeholder='email'></input>
+          <br></br>
+          <button className="sign-up-button">Sign Up</button>
+        </form>
+      </div>
+    );
+  }
+}
+
+export default Signup;
