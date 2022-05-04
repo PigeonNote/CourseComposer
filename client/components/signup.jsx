@@ -36,7 +36,7 @@ class Signup extends Component{
       email: event.target.email.value
     };
       
-    fetch('http://localhost:3000/signup', {
+    fetch('http://localhost:3000/user/signup', {
       method: 'POST',
       credentials: 'include',
       headers: {
@@ -45,18 +45,23 @@ class Signup extends Component{
       body: JSON.stringify(signUpInfo)
     })
       .then((response) => {
+        console.log('RESPONSE IS:', response);
         fetchStatus = response.status;
-        return response.json();
-      })
-      .then((data) => {
         if (fetchStatus === 200) {
           this.setState({...this.state, loggedIn: true});
           return;
-        } 
-        else {
-          return alert('login unsuccessful');
         }
-      });
+      })
+      // .then((data) => {
+      //   console.log('THIS IS THE DATA YOUR LOOKING 4: ', data);
+      //   if (fetchStatus === 200) {
+      //     this.setState({...this.state, loggedIn: true});
+      //     return;
+      //   } 
+      //   else {
+      //     return alert('login unsuccessful');
+      //   }
+      // });
   }
 
 
