@@ -4,6 +4,8 @@ import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import Login from './components/Login.jsx';
 import Dashboard from './components/Dashboard.jsx';
 import SignUp from './components/signup.jsx';
+import CreateCourse from './components/CreateCourse.jsx';
+import CoursePage from './components/CoursePage.jsx';
 import './style/style.css';
 
 const App = props => {
@@ -22,6 +24,8 @@ const App = props => {
             <Route path='/' element={<Login/>}/>
             <Route path='/dashboard' element={<Dashboard/>}/>
             <Route path='/signup' element={<SignUp/>}/>
+            <Route path='/create' element={<CreateCourse/>}/>
+            <Route path='/coursepage' element={<CoursePage/>}/>
           </Routes>
         </BrowserRouter>
       </main>

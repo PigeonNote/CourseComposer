@@ -27,7 +27,7 @@ class Login extends Component {
       password: event.target.password.value
     };
     
-    fetch('http://localhost:3000/login', {
+    fetch('http://localhost:3000/user/login', {
       method: 'POST',
       credentials: 'include',
       headers: {
