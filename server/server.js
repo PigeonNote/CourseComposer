@@ -25,8 +25,8 @@ app.use(express.static(path.join(__dirname, '../client/style')));
 /**
  * ROUTES
 */
-// SIGN UP
-app.use('/', userRouter);
+// USER
+app.use('/user', userRouter);
 // app.use('/signup', userRouter);
 // // DELETE USER
 // app.use('/delete', userRouter);

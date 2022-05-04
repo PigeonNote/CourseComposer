@@ -3,7 +3,7 @@
 CREATE TABLE accounts (
 	"accountID" serial NOT NULL,
 	"username" varchar(50) NOT NULL UNIQUE,
-	"password" varchar(50) NOT NULL UNIQUE,
+	"password" varchar(100) NOT NULL,
     "courses" integer ARRAY,
 	CONSTRAINT "account_pk" PRIMARY KEY ("accountID")
 ); 
@@ -13,9 +13,11 @@ CREATE TABLE courses (
 	"title" varchar(50) NOT NULL,
 	"info" varchar(250),
     "slides" integer ARRAY,
-    "username" integer NOT NULL,
+    "username" varchar(50) NOT NULL,
 	CONSTRAINT "course_pk" PRIMARY KEY ("courseID")
 ); 
+
+-- INSERT INTO courses ( title, info, username ) VALUES ('Stud Hub', 'Hubs for Studs', 'test');
 
     -- SLIDE TABLE
 CREATE TABLE slides (
@@ -43,6 +45,7 @@ INSERT INTO accounts ( username, password ) VALUES ($1, $2) RETURNING *;
 
 -- CREATE COURSE
 INSERT INTO courses ( title, info, username ) VALUES ($1, $2, $3) RETURNING *;
+INSERT INTO courses ( title, info, slides, username ) VALUES ( $1, $2, $3, $4);
 
 -- ADD COURSE TO ACCOUNT
 UPDATE accounts SET courses = (select courses from accounts where username = $1) || ARRAY[1] WHERE username = $1;
