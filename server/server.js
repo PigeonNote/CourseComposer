@@ -5,6 +5,7 @@ const app = express();
 
 const userRouter = require('./routes/user.js');
 const courseRouter = require('./routes/course.js');
+const slideRouter = require('./routes/slide.js');
 
 const PORT = 3000;
 ///
@@ -37,6 +38,9 @@ app.use('/user', userRouter);
 
 // COURSE
 app.use('/course', courseRouter);
+
+// SlIDES
+app.use('/slide', slideRouter);
 
 // catch-all route handler for any requests to an unknown route
 app.use((req, res) => res.status(404).send('This is not the page you\'re looking for...'));
