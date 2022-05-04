@@ -67,9 +67,8 @@ userController.getUser = async(req, res, next) => {
     text: 'SELECT password FROM accounts WHERE username = $1',
     values: [username]
   };
-  // console.log('before hash')
+  
   const hash = await (db.query(query));
-  // console.log("!!!!hash: ", hash);
 
   // validate password
   bcrypt.compare(password, hash.rows[0].password, (err, res) => {

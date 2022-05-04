@@ -4,8 +4,8 @@ import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import Login from './components/Login.jsx';
 import Dashboard from './components/Dashboard.jsx';
 import SignUp from './components/signup.jsx';
-import CreateCourse from './components/CreateCourse.jsx';
-import CoursePage from './components/CoursePage.jsx';
+import CreateCourse from './components/createCourse.jsx';
+import CoursePage from './components/coursePage.jsx';
 import './style/style.css';
 
 const App = props => {
