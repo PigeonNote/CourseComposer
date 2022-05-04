@@ -27,14 +27,14 @@ class CoursePage extends Component {
               autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
           </iframe>
           <br>
-        </br>
+          </br>
           <textarea
             // rows="5"
             // cols="35"
             width="560px" height="315px"
             placeholder="Enter Notes here"
             id="notes-value"
-        />
+          />
         </div>
         
         
