@@ -67,6 +67,9 @@ h1 {
   display: flex;
   justify-content: center;
   gap: 10px;
+  list-style: none;
+  padding: 0px;
+  margin-left: 0px;
 }
 
 .course:hover {
@@ -78,3 +81,24 @@ h1 {
   justify-content: center;
   margin-left: 216px;
 }
+
+.course-title {
+  font-size: 15px;
+  list-style: none;
+  padding: 0px;
+}
+
+.description {
+  font-size: 10px;
+  list-style: none;
+  padding: 0px;
+}
+
+.course-list {
+  padding: 0px;
+  text-align: center;
+  width: 80px;
+  height: 80px;
+}
+
+

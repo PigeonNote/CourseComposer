@@ -34,3 +34,15 @@ export const deleteLesson = newLocation => {
 export const getCourses = courseData => {
   return { type: types.GET_COURSES, payload: courseData}
 };
+
+export const storeCourse = courseData => {
+  return { type: types.STORE_COURSE, payload: courseData}
+};
+
+export const storeLesson = lesson => {
+  return { type: types.STORE_LESSON, payload: lesson}
+};
+
+export const getLessons = lessonData => {
+  return { type: types.GET_LESSONS, payload: lessonData}
+};

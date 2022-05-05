@@ -9,9 +9,10 @@ class SideNav extends Component {
   render() {
     return (
       <div>
-        <a href="#section">
-          <button>Dashboard</button>
-          </a>
+        <Link className="loginPageButton" to={'/dashboard'}>
+          <button>dashboard</button>
+        </Link>
+     
         <br></br>
         <br></br>
         <a href="#section">

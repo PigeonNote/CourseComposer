@@ -15,3 +15,6 @@ export const DELETE_COURSE = 'DELETE_COURSE';
 export const ADD_LESSON = 'ADD_LESSON';
 export const DELETE_LESSON = 'DELETE_LESSON';
 export const GET_COURSES = 'GET_COURSES';
+export const STORE_COURSE = 'STORE_COURSE';
+export const STORE_LESSON = 'STORE_LESSON';
+export const GET_LESSONS = 'GET_LESSONS';
