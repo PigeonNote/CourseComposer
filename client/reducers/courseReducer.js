@@ -18,6 +18,9 @@ const initialState = {
   totalLessons: 0,
   courseList: [],
   lastCourseId: 1,
+  courseID: null,
+  lessons: [],
+  lessonID: null
 };
 
 /*
@@ -46,6 +49,29 @@ const courseReducer = (state = initialState, action) => {
         ...state, 
         courseList: courseData
       }
+
+    case types.STORE_COURSE:
+      const courseNum = action.payload;
+      return {
+        state, 
+        courseID: courseNum
+      }
+
+    case types.STORE_LESSON:
+    const lessonNum = action.payload;
+    return {
+      state, 
+      lessonID: lessonNum
+    }
+
+    case types.GET_LESSONS:
+      const allLessons = action.payload;
+      const lessonData = allLessons.slice()
+      return {
+        ...state, 
+        lessons: lessonData
+      }
+
 
     case types.ADD_COURSE:
       const course = {

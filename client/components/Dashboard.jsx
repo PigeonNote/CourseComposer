@@ -8,17 +8,8 @@ const mapStateToProps = state => {
   //redux state
   console.log('state: ', state);
   return {
-  // add pertinent state here
-    // userId: state.main.userId,
-    // nickname: state.main.nickname,
-    // city: state.main.city, 
-    // stateName: state.main.stateName, 
-    // country: state.main.country,
-    // currentTemp: state.main.currentTemp, 
-    // currentAQI: state.main.currentAQI, 
-    // currentWindSpeed: state.main.currentWindSpeed,
-    // favorites: [...state.main.favorites]
     username: state.course.username,
+    userID: state.course.userID,
     courses: state.course.courseList,
     totalCourses: state.course.totalCourses,
     totalLessons: state.course.totalLessons
@@ -27,13 +18,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  // create functions that will dispatch action creators
-  // dispatchSearchLocation: (newSearchLocation) => {
-  //   dispatch(actions.searchForLocation(newSearchLocation));
-  // }, 
-  // dispatchAddFavorite: (location) => {
-  //   dispatch(actions.addFavorite(location));
-  // }
+ 
   dispatchGetCourses: (courseData) => {
     dispatch(actions.getCourses(courseData))
   }
@@ -75,7 +60,7 @@ const Dashboard = props => {
 
   for (let i = 0; i < props.courses.length; i++) {
     courseComps.push(
-        <Courses courseName={props.courses[i].title} info={props.courses[i].info} courseID={i} key={i}/>
+        <Courses courseName={props.courses[i].title} info={props.courses[i].info} courseID={props.courses[i].course_id} key={i}/>
     )
   }
   console.log('courses are:', courseComps)
@@ -97,22 +82,3 @@ const Dashboard = props => {
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
 
-// useEffect(() => {
-
-//   // console.log('PROPS IS:', props);
-
-//   // const linkFront = 'http://localhost:3000/course/';
-
-//   // const link = link + props.userID;
-
-//   // fetch(concat,{
-//   // method: 'POST',
-//   // credentials: 'include',
-//   // headers: {
-//   //   'Content-Type': 'application/json'
-//   // },
-//   //   body: JSON.stringify(username)
-//   // })
-//   // .then(response => response.json())
-//   // .then(data => console.log('data: ', data))
-// },[])
