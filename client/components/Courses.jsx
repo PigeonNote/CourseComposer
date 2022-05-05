@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions/actions';
 import {useNavigate} from 'react-router-dom';
@@ -10,6 +10,9 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
+    dispatchStoreCourse: (courseData) => {
+        dispatch(actions.storeCourse(courseData))
+      }
 
 });
 
@@ -17,16 +20,18 @@ const mapDispatchToProps = dispatch => ({
 const Courses = (props) =>  {
     const navigate = useNavigate();
 
-    const startCourse = (e) => {
-        console.log(e);
+
+    const startCourse = (course) => {
+        console.log('course: ', course);
+        props.dispatchStoreCourse(course)
         navigate('/coursepage');
     } 
 
     return (
-        <div className='course' onClick={startCourse}>
-            <ul>
-                <li className="course-title">{`${props.courseName}`}</li>
-                <li className="description">{`${props.info}`}</li>
+        <div className='course' onClick={() => startCourse(props.courseID)} >
+            <ul className='course-list'>
+                <h3 className="course-title">{`${props.courseName}`}</h3>
+                <p className="description">{`${props.info}`}</p>
             </ul>
         </div>
     )
