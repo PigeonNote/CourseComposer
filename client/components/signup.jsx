@@ -1,7 +1,15 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Link, Navigate} from 'react-router-dom';
+import * as actions from '../actions/actions';
 
+
+const mapDispatchToProps = dispatch => ({
+  dispatchUsernameStorage: (username) => {
+    dispatch(actions.storeUserData(username));
+  }
+});
 
 class Signup extends Component{
   constructor(props) {
@@ -31,10 +39,11 @@ class Signup extends Component{
         console.log('RESPONSE IS:', response);
         fetchStatus = response.status;
         if (fetchStatus === 200) {
+          this.props.dispatchUsernameStorage({ username: signUpInfo.username });
           this.setState({...this.state, loggedIn: true});
           return;
         }
-      })
+      });
   }
 
 
@@ -55,4 +64,5 @@ class Signup extends Component{
   }
 }
 
-export default Signup;
+// export default Signup;
+export default connect(null, mapDispatchToProps)(Signup);

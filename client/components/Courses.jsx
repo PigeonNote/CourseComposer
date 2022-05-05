@@ -5,7 +5,7 @@ import {useNavigate} from 'react-router-dom';
 
 const mapStateToProps = state => {
     return {
-        courses: state.course.courseList,
+    courses: state.course.courseList,
     }
 };
 
@@ -25,8 +25,8 @@ const Courses = (props) =>  {
     return (
         <div className='course' onClick={startCourse}>
             <ul>
-                <li className="course-title">{`${props.courseName}`}</li>
-                <li className="description">{`${props.info}`}</li>
+                <h3 className="course-title">{`${props.courseName}`}</h3>
+                <p className="description">{`${props.info}`}</p>
             </ul>
         </div>
     )

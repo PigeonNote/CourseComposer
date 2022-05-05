@@ -13,7 +13,7 @@
 import * as types from '../constants/actionTypes';
 
 const initialState = {
-  userID: '',
+  username: '',
   totalCourses: 0,
   totalLessons: 0,
   courseList: [],
@@ -32,16 +32,16 @@ const courseReducer = (state = initialState, action) => {
   
   switch (action.type) {
     case types.STORE_USERINFO:
-      const {userID} = action.payload;
+      const {username} = action.payload;
       console.log('payload is:', action.payload)
       return {
         ...state, 
-        userID: userID
+        username: username
       };
 
     case types.GET_COURSES:
       const allCourses = action.payload;
-      const courseData = allCourses.slice()
+      const courseData = allCourses.slice();
       return {
         ...state, 
         courseList: courseData

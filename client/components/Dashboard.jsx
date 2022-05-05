@@ -18,7 +18,7 @@ const mapStateToProps = state => {
     // currentAQI: state.main.currentAQI, 
     // currentWindSpeed: state.main.currentWindSpeed,
     // favorites: [...state.main.favorites]
-    userID: state.course.userID,
+    username: state.course.username,
     courses: state.course.courseList,
     totalCourses: state.course.totalCourses,
     totalLessons: state.course.totalLessons
@@ -48,7 +48,7 @@ const Dashboard = props => {
 
     const linkFront = 'http://localhost:3000/course/';
 
-    const link = linkFront + props.userID;
+    const link = linkFront + props.username;
 
     const fetchdata = async () => {
       const response = await fetch(link,{

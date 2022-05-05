@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions/actions';
-import { Link, Navigate} from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 
 const mapDispatchToProps = dispatch => ({
-  dispatchUsernameStorage: (userID) => {
-    dispatch(actions.storeUserData(userID));
-  }
+  dispatchUsernameStorage: (username => {
+    dispatch(actions.storeUserData(username));
+  })
 });
 
 class Login extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { userID: '', loggedIn: false };
+    this.state = { username: '', loggedIn: false };
     this.onSubmit = this.onSubmit.bind(this);
     // this.sendToSignUp = this.sendToSignUp.bind(this);
   }
@@ -37,15 +37,16 @@ class Login extends Component {
     })
       .then((response) => {
         fetchStatus = response.status;
+        console.log('fetchStatus: ', fetchStatus);
         if (fetchStatus === 200) {
-          console.log('this.props is:', this.props)
-          this.props.dispatchUsernameStorage({userID: loginInfo.username});
-          this.setState({...this.state, loggedIn: true});
+          console.log('this.props is:', this.props);
+          this.props.dispatchUsernameStorage({ username: loginInfo.username });
+          this.setState({ ...this.state, loggedIn: true });
           return;
         } else {
-            alert('Login Error')
+          alert('Login Error');
         }
-      })
+      });
   }
   
   render() {
@@ -72,7 +73,4 @@ class Login extends Component {
   }
 }
 
-
-
-// export default Login;
 export default connect(null, mapDispatchToProps)(Login);

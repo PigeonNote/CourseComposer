@@ -9,9 +9,9 @@ import * as types from '../constants/actionTypes';
 // export const deleteCardActionCreator = marketId => {
 //   return { type: types.DELETE_CARD, payload: marketId }
 // };
-export const storeUserData = userID => ({
+export const storeUserData = username => ({
   type: types.STORE_USERINFO, 
-  payload: userID
+  payload: username
 });
 
 // change payload to ???

@@ -59,8 +59,8 @@ userController.deleteUser = async(req, res, next) => {
 };
 
 // LOG-IN verify password when user logs in
-userController.getUser = async(req, res, next) => {
-  const { username , password } = req.body;
+userController.getUser = async (req, res, next) => {
+  const { username, password } = req.body;
 
   // query db for password under given username
   const query = {
@@ -72,23 +72,27 @@ userController.getUser = async(req, res, next) => {
 
   // validate password
   bcrypt.compare(password, hash.rows[0].password, (err, res) => {
-    if (err) {
-      console.log(err);
-      return;
+    // if (err) {
+    //   console.log(err);
+    //   return;
+    // }
+    // console.log(res);
+    // if (res === false) {
+    //   alert('Bad Login');
+    // }
+    try {
+      console.log(res);
+      console.log('getUser');
+      if(res) return next();
+    } catch (err) {
+      // if there is an err, return the errorObj to the global error handler
+      return next({
+        log: 'Error Express - userController.getUser',
+        status: 500,
+        message: { err },
+      });
     }
-    console.log(res);
   });
-  try {
-    console.log('getUser');
-    return next();
-  } catch (err) {
-    // if there is an err, return the errorObj to the global error handler
-    return next({
-      log: 'Error Express - userController.getUser',
-      status: 500,
-      message: { err },
-    });
-  }
 };
 
 userController.updateUser = async (req, res, next) => {

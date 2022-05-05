@@ -9,7 +9,7 @@ const mapStateToProps = state => {
   console.log('state: ', state);
   return {
   // add pertinent state here
-    userId: state.course.userId
+    username: state.course.username
   };
 };
 const mapDispatchToProps = dispatch => ({
@@ -35,7 +35,7 @@ class CreateCourse extends Component {
     const info = document.getElementById('description').value;
     const course = {title, info};
     console.log('this is action: ', course);
-    console.log('INSIDE ONSUBMIT, THIS IS THIS.PROPS.USERID ', this.props.userId);
+    console.log('INSIDE ONSUBMIT, THIS IS THIS.PROPS.USERID ', this.props.username);
     this.props.dispatchAddCourse(course);
     
     // fetch request
@@ -47,7 +47,7 @@ class CreateCourse extends Component {
       },
       body: JSON.stringify({
         ...course,
-        userId: this.props.userId
+        username: this.props.username
       })
     })
       .then((response) => {
@@ -55,6 +55,7 @@ class CreateCourse extends Component {
         fetchStatus = response.status;
         if (fetchStatus === 200) {
           // this.setState({ ...this.state, loggedIn: true });
+          document.getElementById('courseAdded').value = 'Course has been added, you nerd ㅋㅋㅋㅋ';
           return;
         }
       });
@@ -67,20 +68,22 @@ class CreateCourse extends Component {
           <SideNav/>
         </div>
         <form id='create'>
-          <input id='title' type='text' placeholder='CourseName'></input>
+          <input id='title' type='text' placeholder='Course Name'></input>
           <br></br>
           <input id='description' type='text' placeholder='Description'></input>
           <br></br>
           <></>
           <button onClick={this.onSubmit}>Save Course</button>
+          <br></br>
           <Link className="createCourseButton" to='/createlesson'>
-            <button>Add Lesson</button>
+            <button> Add Lesson </button>
           </Link>
           <br></br>
           <Link className="cancelButton" to={'/dashboard'}>
             <button> CANCEL! </button>
           </Link>
         </form>
+        <div id='courseAdded'> </div>
       </div>
     );
   }

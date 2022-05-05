@@ -29,10 +29,10 @@ class CoursePage extends Component {
           <br>
           </br>
           <textarea
-            // rows="5"
-            // cols="35"
-            width="560px" height="315px"
-            placeholder="Enter Notes here"
+            rows="25"
+            cols="66"
+            // width="560px" height="315px"
+            placeholder="Enter Notes Here"
             id="notes-value"
           />
         </div>
